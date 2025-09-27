@@ -1,0 +1,16 @@
+# Artefactos de compilación (Mix)
+**/_build/
+**/deps/
+*.ez
+erl_crash.dump
+.elixir_ls/
+
+# Archivos temporales / de editor
+*.swp
+*.swo
+*.bak
+*.tmp
+.DS_Store
+.idea/
+.vscode/
+
