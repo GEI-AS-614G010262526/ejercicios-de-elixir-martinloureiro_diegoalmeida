@@ -14,8 +14,9 @@ lo establecido por el profesor al comienzo del cuatrimestre.
 
 A continuación se han de anotar los datos de los integrantes del equipo:
 
-- Loureiro García, Martín : martin.loureirog
-- Almeida Fernandez, Diego Adrían : diego.almeida.fernandez
+- Apellido1 Apellido2, Nombre : github username : udc username
+- Apellido1 Apellido2, Nombre : github username : udc username
+- Apellido1 Apellido2, Nombre : github username : udc username 
 
 **N.B.:** Los ejercicios no recibirán ninguna corrección si los datos
 de los miembros del equipo no están anotados en este documento o el
