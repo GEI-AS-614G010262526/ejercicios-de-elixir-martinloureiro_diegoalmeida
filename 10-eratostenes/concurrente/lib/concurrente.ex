@@ -19,8 +19,8 @@ defmodule EratostenesConcurrente do
     [p | cribar(filtrados)]
   end
 
-  def primos(n) when is_integer(n) and n < 2, do: []
-  def primos(n) when is_integer(n) do
+  def primos(n) when n < 2, do: []
+  def primos(n) do
     n
     |> generar_lista()
     |> cribar()

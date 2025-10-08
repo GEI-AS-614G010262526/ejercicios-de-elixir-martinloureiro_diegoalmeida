@@ -10,8 +10,8 @@ defmodule Eratostenes do
     [p | cribar(Enum.filter(resto, fn x -> rem(x, p) != 0 end))]
   end
 
-  def primos(n) when is_integer(n) and n < 2, do: []
-  def primos(n) when is_integer(n) do
+  def primos(n) when n < 2, do: []
+  def primos(n) do
     n
     |> generar_lista()
     |> cribar()

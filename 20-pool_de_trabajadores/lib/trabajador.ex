@@ -9,7 +9,7 @@ defmodule Trabajador do
 
   defp loop() do
     receive do
-      {:trabajo, from, func} when is_function(func, 0) ->
+      {:trabajo, from, func} ->
         result = func.()
         send(from, {:resultado, self(), result})
         loop()
