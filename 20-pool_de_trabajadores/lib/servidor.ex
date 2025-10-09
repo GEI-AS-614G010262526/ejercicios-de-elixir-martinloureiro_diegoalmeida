@@ -14,7 +14,6 @@ defmodule Servidor do
     send(master, {:trabajos, self(), jobs})
 
     receive do
-      {:error, reason} -> {:error, reason}
       results -> results
     end
   end
