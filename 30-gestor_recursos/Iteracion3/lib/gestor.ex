@@ -44,6 +44,11 @@ defmodule Gestor do
 
   @impl true
   def init(initial_resources) do
+    # Monitoreamos todos los nodos actuales del cluster
+    Enum.each(Node.list(), fn node ->
+      Node.monitor(node, true)
+    end)
+
     # available: lista de recursos libres
     # assigned: %{recurso => {pid_cliente, monitor_ref}}
     {:ok, %{available: initial_resources, assigned: %{}}}
@@ -95,7 +100,6 @@ defmodule Gestor do
   ## ---------------------
   @impl true
   def handle_info({:DOWN, ref, :process, pid, _reason}, %{available: available, assigned: assigned} = state) do
-    # Encontrar todos los recursos asignados a este pid y monitor
     {liberados, restantes} =
       Enum.split_with(assigned, fn {_res, {p, r}} -> p == pid and r == ref end)
 
@@ -105,8 +109,28 @@ defmodule Gestor do
     {:noreply, %{state | available: nuevos_disponibles, assigned: new_assigned}}
   end
 
+  ## ---------------------
+  ## Nodo caído
+  ## ---------------------
+  @impl true
+  def handle_info({:nodedown, node}, %{available: available, assigned: assigned} = state) do
+    IO.puts("Nodo #{inspect(node)} se ha caído. Liberando recursos asociados.")
+
+    {liberados, restantes} =
+      Enum.split_with(assigned, fn {_res, {pid, _ref}} ->
+        node(pid) == node
+      end)
+
+    nuevos_disponibles = available ++ Enum.map(liberados, fn {res, _} -> res end)
+    new_assigned = Map.new(restantes)
+
+    {:noreply, %{state | available: nuevos_disponibles, assigned: new_assigned}}
+  end
+
+
   @impl true
   def handle_info(_msg, state), do: {:noreply, state}
+
   @impl true
   def handle_cast(_msg, state), do: {:noreply, state}
 end
