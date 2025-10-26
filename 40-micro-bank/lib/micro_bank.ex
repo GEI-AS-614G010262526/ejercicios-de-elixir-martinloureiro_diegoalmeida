@@ -1,27 +1,27 @@
 defmodule MicroBank do
   use GenServer
 
-  #Funciones públicas cortas
+  #Funciones públicas
 
   def deposit(who, amount) do
-    deposit(MicroBank, who, amount)
+    deposit(__MODULE__, who, amount)
   end
 
   def ask(who) do
-    ask(MicroBank, who)
+    ask(__MODULE__, who)
   end
 
   def withdraw(who, amount) do
-    withdraw(MicroBank, who, amount)
+    withdraw(__MODULE__, who, amount)
   end
 
   def stop() do
-    stop(MicroBank)
+    stop(__MODULE__)
   end
 
   #Funciones públicas largas
 
-  def start_link (opts \\ []) do
+  def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, :ok, opts)
   end
 
